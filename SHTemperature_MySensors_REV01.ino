@@ -1,5 +1,6 @@
 #define MY_NODE_ID 20
 #define MY_RADIO_NRF24
+#define AVG_COUNT 5
 /**
  * RF24_PA_LOW = -18dBm
  * RF24_PA_MID = -12dBm
@@ -69,7 +70,7 @@ void loop()
   avgBattery += readVcc() / 1000.0;
   if(batteryMeasureIndex >= AVG_COUNT) {
     send(msgVolt.set(avgBattery / AVG_COUNT, 2));
-    AVG_COUNT = 0;
+    batteryMeasureIndex = 0;
     avgBattery = 0;
   }
 }
